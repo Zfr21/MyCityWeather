@@ -10,16 +10,33 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var temperatureImg: UIImageView!
+    @IBOutlet weak var temperatureLbl: UILabel!
+    @IBOutlet weak var humidityLbl: UILabel!
+    @IBOutlet weak var pressureLbl: UILabel!
+    @IBOutlet weak var sunriseLbl: UILabel!
+    @IBOutlet weak var sunsetLbl: UILabel!
+    @IBOutlet weak var windLbl: UILabel!
+
+    var weather = Weather(city: "Aydin")
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        weather.parseWeatherDetails { () -> () in
+            self.updateUI()
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func updateUI() {
+        temperatureImg.image = UIImage(named: weather.iconImage)
+        temperatureLbl.text = weather.temperature
+        humidityLbl.text = weather.humidity
+        pressureLbl.text = weather.pressure
+        sunriseLbl.text = weather.sunrise
+        sunsetLbl.text = weather.sunset
+        windLbl.text = weather.wind
     }
-
-
+    
 }
 
